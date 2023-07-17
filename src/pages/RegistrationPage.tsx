@@ -1,14 +1,17 @@
-import { ReactEventHandler, useState } from "react";
+import { ReactEventHandler, useEffect, useState } from "react";
 import InputField from "../components/InputField";
+import { useDao } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
-interface FormData{
+
+export interface FormData{
     username:string 
     email:string 
     password:string 
     password2:string
 }
 
-interface FormErrors{
+export interface FormErrors{
     usernameError:string 
     emailError:string 
     passwordError:string 
@@ -18,6 +21,13 @@ interface FormErrors{
 export default function RegistrationPage(){
     const [formData, setFormData] = useState<FormData>({username:"",email:"",password:"",password2:""});
     const [formErrors, setFormErrors] = useState<FormErrors>({usernameError:"",emailError:"",passwordError:"",password2Error:""})
+    const [valid, setValid] = useState<boolean>(true);
+    const router = useNavigate();
+    const dao = useDao();
+
+    useEffect(()=>{
+        validate();
+    },[formData,formErrors])
 
     function setUser(e:React.ChangeEvent<HTMLInputElement>){
         const val = e.target.value;
@@ -46,7 +56,14 @@ export default function RegistrationPage(){
     function submitData(event:React.FormEvent<HTMLFormElement>){
         event.preventDefault();
         console.log(formData)
-        //TODO: create context to store user data
+        dao.put({userId:0,userName:formData.username,userEmail:formData.email,userPassword:formData.password});
+        router("/login");
+    }
+
+    function validate(){
+        if(formData.username && !formErrors.usernameError && formData.email && !formErrors.emailError && formData.password && !formErrors.passwordError && formData.password2 && !formErrors.password2Error){
+            setValid(false)
+        }else{setValid(true)}
     }
 
     return<>
@@ -57,7 +74,7 @@ export default function RegistrationPage(){
                 <InputField name={"email"} label={"Email"} type={"email"} placeholder={"example@example.com"} error={formErrors.emailError} callback={setEmail} value={formData.email}/>
                 <InputField name={"password"} label={"Password"} type={"password"} placeholder={"super secret password"} error={formErrors.passwordError} callback={setPassword} value={formData.password}/>
                 <InputField name={"password2"} label={"Retype Password"} type={"password"} placeholder={"type password again to verify"} error={formErrors.password2Error} callback={setPassword2} value={formData.password2}/>
-                <input type="submit"></input>
+                <input disabled={valid} type="submit"></input>
             </form>
         </div>
     </>

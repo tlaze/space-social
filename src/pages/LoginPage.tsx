@@ -1,7 +1,8 @@
 import { useState } from "react";
 import InputField from "../components/InputField";
+import { useDao } from "../contexts/UserContext";
 
-interface FormData{
+export interface FormData{
     username:string 
     password:string 
 }
@@ -14,7 +15,8 @@ interface FormErrors{
 export default function LoginPage(){
 
     const [formData, setFormData] = useState<FormData>({username:"",password:""});
-    const [formErrors, setFormErrors] = useState<FormErrors>({usernameError:"",passwordError:""})
+    const [formErrors, setFormErrors] = useState<FormErrors>({usernameError:"",passwordError:""});
+    const dao = useDao();
 
     function setUser(e:React.ChangeEvent<HTMLInputElement>){
         const val = e.target.value;
@@ -31,12 +33,13 @@ export default function LoginPage(){
     function submitData(event:React.FormEvent<HTMLFormElement>){
         event.preventDefault();
         console.log(formData)
-        //TODO: create context to store user data
+        dao.login(formData);
+        console.log(dao.current);
     }
 
     return<>
         <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-            <h1>Register</h1>
+            <h1>Login</h1>
             <form onSubmit={submitData}>
                 <InputField name={"username"} label={"Username"} type={"text"} placeholder={"Input your username"} error={formErrors.usernameError} callback={setUser} value={formData.username}/>
                 <InputField name={"password"} label={"Password"} type={"password"} placeholder={"Your password"} error={formErrors.passwordError} callback={setPassword} value={formData.password}/>
