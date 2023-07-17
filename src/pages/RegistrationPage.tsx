@@ -2,6 +2,7 @@ import { ReactEventHandler, useEffect, useState } from "react";
 import InputField from "../components/InputField";
 import { useDao } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 
 export interface FormData{
@@ -67,6 +68,7 @@ export default function RegistrationPage(){
     }
 
     return<>
+        
         <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
             <h1>Register</h1>
             <form onSubmit={submitData}>

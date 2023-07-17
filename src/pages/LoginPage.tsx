@@ -1,6 +1,8 @@
 import { useState } from "react";
 import InputField from "../components/InputField";
 import { useDao } from "../contexts/UserContext";
+import NavBar from "../components/NavBar";
+import { useNavigate } from "react-router-dom";
 
 export interface FormData{
     username:string 
@@ -16,7 +18,9 @@ export default function LoginPage(){
 
     const [formData, setFormData] = useState<FormData>({username:"",password:""});
     const [formErrors, setFormErrors] = useState<FormErrors>({usernameError:"",passwordError:""});
+
     const dao = useDao();
+    const router = useNavigate();
 
     function setUser(e:React.ChangeEvent<HTMLInputElement>){
         const val = e.target.value;
@@ -33,11 +37,14 @@ export default function LoginPage(){
     function submitData(event:React.FormEvent<HTMLFormElement>){
         event.preventDefault();
         console.log(formData)
-        dao.login(formData);
+        const success = dao.login(formData);
         console.log(dao.current);
+        if(success){router("/")}
     }
 
+
     return<>
+        
         <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
             <h1>Login</h1>
             <form onSubmit={submitData}>

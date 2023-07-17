@@ -6,12 +6,19 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import RegistrationPage from './pages/RegistrationPage';
 import LoginPage from './pages/LoginPage';
 import UserContext from './contexts/UserContext';
+import ArticlePage from './pages/ArticlePage';
+import HomePage from './pages/HomePage';
+import NavBar from './components/NavBar';
 
 function App() {
+
   return (
     <BrowserRouter>
       <UserContext>
+        <NavBar/>
         <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/article/:articleid" element={<ArticlePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
           <Route path="*" element={<Navigate to="/" />} />

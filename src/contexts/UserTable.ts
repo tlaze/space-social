@@ -76,4 +76,9 @@ export default class UserTable{
             return true;
         }else{return false}
     }
+
+    logout(){
+        this.current = {userId:0, userName:"", userEmail:"", userPassword:""};
+        localStorage.removeItem("user");
+    }
 }
