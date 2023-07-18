@@ -1,22 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
-
 import { Article } from "../models/Article";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
-
 export default function HomePage(){
-
-    const [articles, setArticles] = useState<Article[]>([]);
-
-    const getAllArticles = () => {
-
-        axios.get<Article[]>(`https://api.spaceflightnewsapi.net/v3/articles`)
-            .then(response => { setArticles(response.data) });
-    }
-
-    useEffect(getAllArticles, []);
 
     const [articles, setArticles] = useState<Article[]>([]);
 
@@ -31,7 +19,6 @@ export default function HomePage(){
     return<>
 
     <h1 style={{textAlign: "center"}}>Space Articles</h1>
-
         {console.log(articles)}
         {articles.map((myArticle) => {
             return <Link to={"/article/"+myArticle.id}>
@@ -44,7 +31,6 @@ export default function HomePage(){
                 </div>
             </Link>
             })}
-
 
     </>
 }

@@ -10,7 +10,7 @@ interface myProps{
   
 }
 export function ArticlePage(props: myProps){
-    const [article, setArticle] = useState<Article>({id:0,title:"",url:"",imageUrl:"",summary:""});
+    const [article, setArticle] = useState<Article>({id:0,title:"",url:"",imageUrl:"",summary:"",publishedAt:""});
     const {articleid} = useParams();
     const id = Number(articleid)
     if(id){localStorage.setItem('article',id.toString())}
