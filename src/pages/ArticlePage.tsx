@@ -1,22 +1,38 @@
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import {ArticleDisplay}  from '../components/ArticleDisplay';
 import { Comments } from '../components/Comments';
 import { Article } from '../models/Article';
-import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+//import styled from 'styled-components';
 
 interface myProps{
   
 }
 export function ArticlePage(props: myProps){
+    const [article, setArticle] = useState<Article>({id:0,title:"",url:"",imageUrl:"",summary:""});
+    const {articleid} = useParams();
+    const id = Number(articleid)
+    if(id){localStorage.setItem('article',id.toString())}
+
+    const getArticle = () => {
+
+        axios.get<Article>(`https://api.spaceflightnewsapi.net/v3/articles/`+localStorage.getItem("article"))
+            .then(response => { setArticle(response.data) });
+    }
+
+    useEffect(getArticle, []);
     
     return(
 
         <>
+        {console.log(article)}
           <div>
-            <ArticleDisplay articleUrl={''} ></ArticleDisplay>
+            {/* {article.url ? <ArticleDisplay articleUrl={article.url} ></ArticleDisplay>:<p>loading</p>} */}
           </div>
           <br></br>
           <div>
-            <Comments userComment={''}></Comments>
+            {/* <Comments userComment={''}></Comments> */}
           </div>
           <br></br>
           <div>
