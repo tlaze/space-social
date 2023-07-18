@@ -10,7 +10,7 @@ export function ArticleDisplay(props: myProps){
     return(
 
         <> 
-                <iframe src="{articleUrl}" width={800} height={800}></iframe>
+                <iframe src="{articleUrl}" width={800} height={800} loading='eager'></iframe>
             
         </>
     )
