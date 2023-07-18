@@ -28,7 +28,7 @@ export function ArticlePage(props: myProps){
         <>
         {console.log(article)}
           <div>
-            {/* {article.url ? <ArticleDisplay articleUrl={article.url} ></ArticleDisplay>:<p>loading</p>} */}
+            {article.url ? <ArticleDisplay articleUrl={article.url} ></ArticleDisplay>:<p>loading</p>}
           </div>
           <br></br>
           <div>
