@@ -5,6 +5,8 @@ import {ArticleDisplay}  from '../components/ArticleDisplay';
 import { Comments } from '../components/Comments';
 import { Article } from '../models/Article';
 import { useParams } from 'react-router-dom';
+import { userInfo } from 'os';
+import { useDao } from '../contexts/UserContext';
 //import styled from 'styled-components';
 
 
@@ -14,6 +16,8 @@ interface myProps{
 export function ArticlePage(props: myProps){
     const [article, setArticle] = useState<Article>({id:0,title:"",url:"",imageUrl:"",summary:""});
     const {articleid} = useParams();
+    const [loggedInState, updateLoggedInState] = useState(false);
+    const dao = useDao();
     const id = Number(articleid)
     if(id){localStorage.setItem('article',id.toString())}
 
@@ -25,7 +29,10 @@ export function ArticlePage(props: myProps){
 
     useEffect(getArticle, []);
     
-    let [loggedInState, updateLoggedInState] = useState(false);
+    function submitComment(){
+      let commmentInput = {comment: '', user: 0, article: 0 } 
+      dao.putComment(commmentInput);      
+    }
 
     
     return(
@@ -38,7 +45,7 @@ export function ArticlePage(props: myProps){
           <br></br>
           <div>
             <p>You must be logged in to post a comment</p>
-            <button onClick={}>Login</button>
+            <button onClick={submitComment}>Login</button>
             {/* {loggedInState ? <Comments userComment={''}></Comments> : <LoginPage></LoginPage>} */}
             
             
