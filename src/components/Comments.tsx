@@ -1,14 +1,15 @@
-import React from 'react'
+interface inputCommentProps{
+    userComment: string
+}
+// allow comments if logged in
 
-export function Comments(){
-
+// push comments to a comment [] 
+export function Comments(props: inputCommentProps){
+    
     return(
 
         <>
-        {/* 
-        this component will be rendered on the ArticalView page if and only if 
-        the user is logged in.   */}
+        
         </>
     );
-
 }
