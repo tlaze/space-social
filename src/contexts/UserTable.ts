@@ -81,4 +81,8 @@ export default class UserTable{
         this.current = {userId:0, userName:"", userEmail:"", userPassword:""};
         localStorage.removeItem("user");
     }
+
+    putComment(comment:Comment){
+        this.comments.push(comment);
+    }
 }
