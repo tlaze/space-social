@@ -6,9 +6,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import RegistrationPage from './pages/RegistrationPage';
 import LoginPage from './pages/LoginPage';
 import UserContext from './contexts/UserContext';
-import ArticlePage from './pages/ArticlePage';
 import HomePage from './pages/HomePage';
 import NavBar from './components/NavBar';
+import { ArticlePage } from './pages/ArticlePage';
 
 function App() {
 
