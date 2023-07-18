@@ -13,10 +13,11 @@ export function ArticlePage(props: myProps){
     const [article, setArticle] = useState<Article>({id:0,title:"",url:"",imageUrl:"",summary:""});
     const {articleid} = useParams();
     const id = Number(articleid)
+    if(id){localStorage.setItem('article',id.toString())}
 
     const getArticle = () => {
 
-        axios.get<Article>(`https://api.spaceflightnewsapi.net/v3/articles/`+id)
+        axios.get<Article>(`https://api.spaceflightnewsapi.net/v3/articles/`+localStorage.getItem("article"))
             .then(response => { setArticle(response.data) });
     }
 
@@ -25,9 +26,9 @@ export function ArticlePage(props: myProps){
     return(
 
         <>
-        {console.log(article.url)}
+        {console.log(article)}
           <div>
-            {article.url ? <ArticleDisplay articleUrl={article.url} ></ArticleDisplay>:<p>loading</p>}
+            {/* {article.url ? <ArticleDisplay articleUrl={article.url} ></ArticleDisplay>:<p>loading</p>} */}
           </div>
           <br></br>
           <div>
