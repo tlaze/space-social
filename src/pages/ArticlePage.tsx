@@ -1,12 +1,17 @@
+import { useState } from 'react';
 import {ArticleDisplay}  from '../components/ArticleDisplay';
 import { Comments } from '../components/Comments';
-import { Article } from '../models/Article';
+import { Article } from '../models/article';
 import styled from 'styled-components';
+import LoginPage from './LoginPage';
 
 interface myProps{
   
 }
 export function ArticlePage(props: myProps){
+    
+    let [loggedInState, updateLoggedInState] = useState(false);
+
     
     return(
 
@@ -16,7 +21,11 @@ export function ArticlePage(props: myProps){
           </div>
           <br></br>
           <div>
-            <Comments userComment={''}></Comments>
+            <p>You must be logged in to post a comment</p>
+            <button onClick={}>Login</button>
+            {/* {loggedInState ? <Comments userComment={''}></Comments> : <LoginPage></LoginPage>} */}
+            
+            
           </div>
           <br></br>
           <div>
