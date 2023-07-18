@@ -10,14 +10,14 @@ interface myProps{
   
 }
 export function ArticlePage(props: myProps){
-    const [article, setArticle] = useState<Article>({id:0,title:"",url:"",imageUrl:"",summary:"",publishedAt:""});
+    const [article, setArticle] = useState<Article>({id:0,title:"",url:"",imageUrl:"",summary:""});
     const {articleid} = useParams();
     const id = Number(articleid)
     if(id){localStorage.setItem('article',id.toString())}
 
     const getArticle = () => {
 
-        axios.get<Article>(`https://api.spaceflightnewsapi.net/v3/articles/`+localStorage.getItem("article"))
+        axios.get<Article>(`https://api.spaceflightnewsapi.net/v3/articles/`+id)
             .then(response => { setArticle(response.data) });
     }
 
